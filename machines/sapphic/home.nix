@@ -10,6 +10,7 @@
     ../../modules/cli-apps/gh
     ../../modules/cli-apps/hyfetch
     ../../modules/cli-apps/mpv
+    ../../modules/cli-apps/ssh
     ../../modules/cli-apps/zsh
     
     ../../modules/apps/alacritty
@@ -32,6 +33,15 @@
     homeDirectory = "/home/chloe";
 
     file = {
+      # 1Password configuration
+      # test: SSH_AUTH_SOCK=~/.1password/agent.sock ssh-add -l
+      # https://developer.1password.com/docs/ssh/agent/config
+      ".config/1Password/ssh/agent.toml".text = ''
+        [[ssh-keys]]
+        vault = "Development"
+      '';
+
+      # btop theme
       ".config/btop/themes/catppuccin_mocha.theme" = {
         source = pkgs.fetchFromGitHub {
           owner = "catppuccin";
