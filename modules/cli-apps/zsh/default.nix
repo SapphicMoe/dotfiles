@@ -5,14 +5,17 @@
     ../../common/zsh.nix
   ];
 
-  programs.zsh = {
-    autocd = true;
-      
+  programs.zsh = {      
     # zsh configuration file
     dotDir = ".config/zsh";
 
+    initExtra = ''
+      eval "$(zoxide init zsh)"  
+    '';
+
     shellAliases = {
       cat = "bat";
+      cd = "z";
       ls = "eza";
     };
 
