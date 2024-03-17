@@ -6,11 +6,13 @@
     ../../modules/cli-apps/bat
     ../../modules/cli-apps/btop
     ../../modules/cli-apps/eza
-    ../../modules/cli-apps/git
     ../../modules/cli-apps/gh
+    ../../modules/cli-apps/git
     ../../modules/cli-apps/hyfetch
     ../../modules/cli-apps/mpv
     ../../modules/cli-apps/ssh
+    ../../modules/cli-apps/yt-dlp
+    ../../modules/cli-apps/zoxide
     ../../modules/cli-apps/zsh
     
     ../../modules/apps/alacritty
@@ -54,13 +56,21 @@
 
     packages = with pkgs; [
       # messengers
-      telegram-desktop signal-desktop discord
+      telegram-desktop signal-desktop (callPackage ../../packages/vesktop {
+        vencord = pkgs.callPackage (import ../../packages/vencord/package.nix) {};
+      })
+
+      # notes
+      obsidian
 
       # fonts
       iosevka (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
 
+      # dev
+      nodejs corepack_latest
+
       # mail
-      thunderbird
+      thunderbird betterbird
 
       # games
       prismlauncher xivlauncher space-cadet-pinball (callPackage ../../packages/osu-lazer-bin { })
@@ -76,7 +86,6 @@
         nix hash to-sri --type sha256 $(nix-prefetch-url ''$1)
       '')
 
-      # obsidian
       # lutris
     ];
 
