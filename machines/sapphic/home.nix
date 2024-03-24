@@ -67,10 +67,10 @@
       iosevka (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
 
       # dev
-      nodejs corepack_latest
+      nodejs corepack_latest bun
 
       # mail
-      thunderbird betterbird
+      thunderbird
 
       # games
       prismlauncher xivlauncher space-cadet-pinball (callPackage ../../packages/osu-lazer-bin { })
