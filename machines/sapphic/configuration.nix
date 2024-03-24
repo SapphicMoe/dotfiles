@@ -37,12 +37,16 @@
 
   programs.dconf.enable = true; # Fix missing cursors on Firefox
 
+  virtualisation.docker = {
+    enable = true;
+  };
+
   # User account configuration
   users.users = {
     chloe = {
       isNormalUser = true;
       description = "Chloe";
-      extraGroups = [ "networkmanager" "wheel" ];
+      extraGroups = [ "networkmanager" "wheel" "docker" ];
       shell = pkgs.zsh;
     };
   };
