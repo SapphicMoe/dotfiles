@@ -13,19 +13,40 @@
     nil.url = "github:oxalica/nil";
   };
 
-  outputs = { self, nixpkgs, ... }@inputs:
-    # let
-    #   system = "x86_64-linux";
-    #   pkgs = nixpkgs.legacyPackages.${system};
-    # in
+  outputs = { self, home-manager, nixpkgs, ... } @inputs:
+    let
+      system = "x86_64-linux";
+      pkgs = nixpkgs.legacyPackages.${system};
+    in
     {
+      # NixOS configurations
       nixosConfigurations = {
         sapphic = nixpkgs.lib.nixosSystem {
-          specialArgs = {inherit inputs;};
+          specialArgs = { inherit inputs; };
           modules = [
-            ./machines/sapphic/configuration.nix
+            ./hosts/sapphic/configuration.nix
+          ];
+        };
+      };
+
+      # Home Manager configurations
+      homeConfigurations = let
+        username = "chloe";
+      in {
+        "${username}" = home-manager.lib.homeManagerConfiguration {
+          pkgs = pkgs;
+          extraSpecialArgs = { inherit inputs; };
+          modules = [
+            ./home/${username}/home.nix
+            ({ pkgs, ... }: {
+              home = {
+                username = username;
+                homeDirectory = "/home/${username}";
+              };
+            })
           ];
         };
       };
     };
+    
 }

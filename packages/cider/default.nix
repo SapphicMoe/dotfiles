@@ -6,10 +6,10 @@
 
 appimageTools.wrapType2 rec {
   pname = "cider";
-  version = "2.3.1";
+  version = "2.3.2";
   name = "${pname}-${version}";
 
-  src = /home/chloe/Downloads/Cider-2.3.1.AppImage;
+  src = /home/chloe/Downloads/Cider-linux-appimage-x64.AppImage;
 
   extraInstallCommands = let
     contents = appimageTools.extract { inherit name src; };
