@@ -9,6 +9,7 @@
       ../../modules/system/graphics.nix
       
       ../../modules/services/asusd.nix
+      ../../modules/services/pipewire.nix
       ../../modules/services/xserver.nix
 
       ../../modules/cli-apps/1password
@@ -19,6 +20,8 @@
       inputs.home-manager.nixosModules.default
     ];
 
+  networking.hostName = "sapphic";
+  
   environment = {
     systemPackages = with pkgs; [
       asusctl
