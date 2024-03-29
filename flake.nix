@@ -14,39 +14,36 @@
   };
 
   outputs = { self, home-manager, nixpkgs, ... } @inputs:
-    let
-      system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system};
-    in
+    # let
+    #   system = "x86_64-linux";
+    #   pkgs = nixpkgs.legacyPackages.${system};
+    # in
     {
-      # NixOS configurations
+      # NixOS configuration
       nixosConfigurations = {
-        sapphic = nixpkgs.lib.nixosSystem {
+        "sapphic" = let
+          hostname = "sapphic";
+          username = "chloe";
+        in nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs; };
           modules = [
-            ./hosts/sapphic/configuration.nix
-          ];
-        };
-      };
+            ./hosts/${hostname}/configuration.nix
 
-      # Home Manager configurations
-      homeConfigurations = let
-        username = "chloe";
-      in {
-        "${username}" = home-manager.lib.homeManagerConfiguration {
-          pkgs = pkgs;
-          extraSpecialArgs = { inherit inputs; };
-          modules = [
-            ./home/${username}/home.nix
-            ({ pkgs, ... }: {
-              home = {
-                username = username;
-                homeDirectory = "/home/${username}";
+            home-manager.nixosModules.home-manager {
+              networking.hostName = hostname;
+              
+              home-manager = {
+                users.${username} = {
+                  imports = [ ./home/${username}/home.nix ];
+                  home = {
+                    username = username;
+                    homeDirectory = "/home/${username}";
+                  };
+                };
               };
-            })
+            }
           ];
         };
       };
-    };
-    
+  };
 }
