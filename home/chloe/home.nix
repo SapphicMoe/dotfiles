@@ -2,8 +2,8 @@
 
 {
   imports = [
-    ../packages
-    ../files
+    ./packages
+    ./files.nix
 
     ../../modules/cli-apps/bat
     ../../modules/cli-apps/btop
