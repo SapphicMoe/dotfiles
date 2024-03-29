@@ -1,10 +1,9 @@
 {
   services.xserver = {
     enable = true;
-    desktopManager.plasma5.enable = true; # Enable KDE Plasma 5
+    desktopManager.plasma6.enable = true; # Enable KDE Plasma 6
 
     displayManager = {
-      defaultSession = "plasmawayland"; # Launch KDE Plasma 5 in Wayland
       sddm = {
         enable = true;
         wayland.enable = true; # Launch SDDM in Wayland

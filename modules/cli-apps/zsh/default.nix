@@ -27,7 +27,18 @@
       ls = "eza";
     };
 
-    oh-my-zsh.enable = true;
+    oh-my-zsh = {
+      enable = true;
+      plugins = [
+        "1password"
+        "bun"
+        "colored-man-pages"
+        "docker"
+        "docker-compose"
+        "git"
+        "vscode"
+      ];
+    };
 
     plugins = [
       {
