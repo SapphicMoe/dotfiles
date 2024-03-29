@@ -1,14 +1,7 @@
 { pkgs, ... }:
 
 {
-  imports = [
-    ./packages.nix
-
-    ../../modules/common/zsh.nix
-
-    ../../modules/services/pipewire.nix
-    
-  ];
+  imports = [ ./packages.nix ];
 
   # Nix options
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -28,7 +21,14 @@
     hardwareClockInLocalTime = true;
   };
 
-  programs.dconf.enable = true; # Fix missing cursors on Firefox
+  programs = {
+    dconf.enable = true; # Fix missing cursors on Firefox
+    zsh = {
+      enable = true;
+      enableCompletion = true;
+      syntaxHighlighting.enable = true;
+    };
+  };
 
   networking.networkmanager.enable = true; # Enable NetworkManager
 
@@ -37,7 +37,7 @@
       isNormalUser = true;
       description = "Chloe";
       extraGroups = [ "networkmanager" "wheel" "docker" ];
-      shell = with pkgs; zsh;
+      shell = pkgs.zsh;
     };
   };
 }

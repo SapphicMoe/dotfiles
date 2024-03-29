@@ -72,7 +72,7 @@ in
 
     richerCider = fetchurl {
       url = "https://raw.githubusercontent.com/ciderapp/RicherCider-Vencord/main/richerCider.desktop.tsx";
-      hash = "sha256-XOuinRceMqoJd+IC2AImv6J8McqsdtSt36as800PZpI=";
+      hash = "sha256-qHhe9+ANuFJC78x09R1jLuKDjH+uvhsn2YUk93NyV8o=";
     };
 
     preBuild = ''
