@@ -28,6 +28,8 @@
     gnome.excludePackages = with pkgs; [ gnome-tour ];
   };
 
+  services.flatpak.enable = true;
+
   virtualisation.docker.enable = true;
 
   system.stateVersion = "23.11"; # Initial NixOS version
