@@ -39,13 +39,17 @@
     nodejs 
     corepack_latest 
     bun
+    jetbrains.webstorm
+    jetbrains.idea-ultimate
+    jetbrains.rust-rover
+    jetbrains.pycharm-professional
 
     # mail
     thunderbird
 
     # games
-    prismlauncher 
-    xivlauncher 
+    prismlauncher
+    xivlauncher
     space-cadet-pinball
   ];
 }
