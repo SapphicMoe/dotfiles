@@ -10,16 +10,16 @@
   nodejs,
   cacert,
 }: let
-  gitHash = "1807d6073136f63d3c19342682c193ae82d9b8ae";
+  gitHash = "97ce410";
 in
   stdenv.mkDerivation rec {
-    pname = "owo-vencord";
+    pname = "vencord";
     version = builtins.substring 0 8 gitHash;
 
     src = fetchgit {
-      url = "https://git.skye.vg/me/owo-vencord.git";
+      url = "https://github.com/vendicated/vencord";
       rev = gitHash;
-      sha256 = "sha256-yeZX8bv1+1H2w9G4R9UUlhOvardGNPUwVkD1t+a3yWo=";
+      sha256 = "sha256-5kMBUdFupVxmlQ7NVJ7qzFoyQieDGHrFNkrzhlhEzJ0=";
     };
 
     pnpmDeps =
@@ -62,7 +62,7 @@ in
     };
 
     VENCORD_HASH = gitHash;
-    VENCORD_REMOTE = "vgskye/owo-vencord";
+    VENCORD_REMOTE = "Vendicated/Vencord";
 
     nativeBuildInputs = [
       jq
@@ -105,9 +105,9 @@ in
     };
 
     meta = with lib; {
-      description = "Vencord but patch";
-      homepage = "https://git.skye.vg/me/owo-vencord";
+      description = "The cutest Discord client mod!";
+      homepage = "https://codeberg.org/vee/cord";
       license = licenses.gpl3Only;
-      maintainers = with maintainers; [vgskye];
+      maintainers = with maintainers; [SapphicMoe];
     };
   }
