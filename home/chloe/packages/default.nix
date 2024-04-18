@@ -24,11 +24,16 @@
     (nerdfonts.override { fonts = [ "JetBrainsMono" ]; }) 
 
     # theme
-    (catppuccin-kde.override {
-      flavour = ["mocha"];
-      accents = ["pink"];
-      winDecStyles = ["classic"];
-    })
+    # (catppuccin-kde.override {
+      # flavour = ["mocha"];
+      # accents = ["pink"];
+      # winDecStyles = ["classic"];
+    # })
+
+    # gnome
+    gnome.gnome-tweaks
+    tilix
+    tracker
 
     # dev
     nodejs 

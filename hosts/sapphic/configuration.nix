@@ -25,11 +25,10 @@
       catppuccin-sddm-corners
       catppuccin-cursors.mochaPink
     ];
+    gnome.excludePackages = with pkgs; [ gnome-tour ];
   };
 
-  virtualisation.docker = {
-    enable = true;
-  };
+  virtualisation.docker.enable = true;
 
   system.stateVersion = "23.11"; # Initial NixOS version
 }

@@ -1,19 +1,26 @@
+{ pkgs, ... }:
+
 {
   services.xserver = {
     enable = true;
-    desktopManager.plasma6.enable = true; # Enable KDE Plasma 6
+    desktopManager.gnome.enable = true; # Enable GNOME
+    excludePackages = with pkgs; [ xterm ];
+    # desktopManager.plasma6.enable = true; # Enable KDE Plasma 6
 
     displayManager = {
-      sddm = {
+      gdm = {
         enable = true;
-        wayland.enable = true; # Launch SDDM in Wayland
-        theme = "catppuccin-sddm-corners";
-        
-        settings = {
-          Theme.CursorTheme = "Catppuccin-Mocha-Pink-Cursors";
-          General.InputMethod = ""; # Disable touchscreen keyboard
-        };
       };
+      # sddm = {
+        # enable = true;
+        # wayland.enable = true; # Launch SDDM in Wayland
+        # theme = "catppuccin-sddm-corners";
+        
+        # settings = {
+          # Theme.CursorTheme = "Catppuccin-Mocha-Pink-Cursors";
+          # General.InputMethod = ""; # Disable touchscreen keyboard
+        # };
+      # };
     };
   };
 }

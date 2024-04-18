@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   imports = [
@@ -27,6 +27,20 @@
 
   # Font configuration
   fonts.fontconfig.enable = true;
+  
+  # GTK stuff
+  gtk = {
+    enable = true;
+    theme = {
+      name = "Catppuccin-Mocha-Compact-Pink-Dark";
+      package = with pkgs; catppuccin-gtk.override {
+        accents = [ "pink" ];
+        size = "compact";
+        tweaks = [ "rimless" ];
+        variant = "mocha";
+      };
+    };
+  };
   
   # Home Manager state version. Do not touch.
   home.stateVersion = "23.11";
