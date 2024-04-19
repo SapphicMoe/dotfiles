@@ -11,32 +11,43 @@
 
     # Nix Language Server
     nil.url = "github:oxalica/nil";
+
+    # Catppuccin for Nix
+    catppuccin.url = "github:catppuccin/nix";
   };
 
-  outputs = { self, home-manager, nixpkgs, ... } @inputs:
-    # let
-    #   system = "x86_64-linux";
-    #   pkgs = nixpkgs.legacyPackages.${system};
-    # in
-    {
-      # NixOS configuration
-      nixosConfigurations = {
-        "sapphic" = let
-          hostname = "sapphic";
-          username = "chloe";
-        in nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs; };
+  outputs = {
+    self,
+    home-manager,
+    nixpkgs,
+    ...
+  } @ inputs:
+  # let
+  #   system = "x86_64-linux";
+  #   pkgs = nixpkgs.legacyPackages.${system};
+  # in
+  {
+    # NixOS configuration
+    nixosConfigurations = {
+      "sapphic" = let
+        hostname = "sapphic";
+        username = "chloe";
+      in
+        nixpkgs.lib.nixosSystem {
+          specialArgs = {inherit inputs;};
           modules = [
             ./hosts/${hostname}/configuration.nix
 
-            home-manager.nixosModules.home-manager {
+            home-manager.nixosModules.home-manager
+            {
               networking.hostName = hostname;
-              
+
               home-manager = {
+                extraSpecialArgs = {inherit inputs;};
                 users.${username} = {
-                  imports = [ ./home/${username}/home.nix ];
+                  imports = [./home/${username}/home.nix];
                   home = {
-                    username = username;
+                    inherit username;
                     homeDirectory = "/home/${username}";
                   };
                 };
@@ -44,6 +55,6 @@
             }
           ];
         };
-      };
+    };
   };
 }

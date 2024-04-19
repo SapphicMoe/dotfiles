@@ -1,6 +1,8 @@
-{ pkgs, ... }:
-
 {
+  inputs,
+  pkgs,
+  ...
+}: {
   imports = [
     ./packages
     ./files.nix
@@ -15,8 +17,9 @@
     ../../modules/cli-apps/ssh
     ../../modules/cli-apps/zoxide
     ../../modules/cli-apps/zsh
-    
+
     ../../modules/apps/vscode
+    inputs.catppuccin.homeManagerModules.catppuccin
   ];
 
   # Let Home Manager install and manage itself.
@@ -27,21 +30,25 @@
 
   # Font configuration
   fonts.fontconfig.enable = true;
-  
+
   # GTK stuff
   gtk = {
     enable = true;
     theme = {
       name = "Catppuccin-Mocha-Compact-Pink-Dark";
-      package = with pkgs; catppuccin-gtk.override {
-        accents = [ "pink" ];
-        size = "compact";
-        tweaks = [ "rimless" ];
-        variant = "mocha";
-      };
+      package = with pkgs;
+        catppuccin-gtk.override {
+          accents = ["pink"];
+          size = "compact";
+          tweaks = ["rimless"];
+          variant = "mocha";
+        };
     };
   };
-  
+
+  # Use Catppuccin mocha
+  catppuccin.flavour = "mocha";
+
   # Home Manager state version. Do not touch.
   home.stateVersion = "23.11";
 }
