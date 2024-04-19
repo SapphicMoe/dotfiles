@@ -2,7 +2,7 @@
   description = "NixOS configuration for the Sapphic Angels system.";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "nixpkgs/nixos-unstable";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -11,39 +11,79 @@
 
     # Nix Language Server
     nil.url = "github:oxalica/nil";
+    
+    # nix-ld-rs
+    nix-ld-rs = {
+      url = "github:nix-community/nix-ld-rs";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # NixOS on WSL
+    nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
   };
 
-  outputs = { self, home-manager, nixpkgs, ... } @inputs:
-    # let
-    #   system = "x86_64-linux";
-    #   pkgs = nixpkgs.legacyPackages.${system};
-    # in
-    {
-      # NixOS configuration
-      nixosConfigurations = {
-        "sapphic" = let
-          hostname = "sapphic";
-          username = "chloe";
-        in nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs; };
-          modules = [
-            ./hosts/${hostname}/configuration.nix
+  outputs = inputs @ { 
+    self,
+    nixpkgs,
+    home-manager, 
+    nixos-wsl,
+    ...
+  }: let
+    inherit (self) outputs;
 
-            home-manager.nixosModules.home-manager {
-              networking.hostName = hostname;
-              
-              home-manager = {
-                users.${username} = {
-                  imports = [ ./home/${username}/home.nix ];
-                  home = {
-                    username = username;
-                    homeDirectory = "/home/${username}";
-                  };
-                };
-              };
-            }
+    lib = nixpkgs.lib // home-manager.lib;
+
+    systems = [
+      "x86_64-linux"
+    ];
+
+    # forEachSystem = f: lib.genAttrs systems (system: f pkgsFor.${system});
+
+    pkgsFor = lib.genAttrs systems (system:
+      import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+      });
+    in {
+      inherit lib;
+
+      # NixOS configurations
+      nixosConfigurations = {
+        sapphic = lib.nixosSystem {
+          pkgs = pkgsFor.x86_64-linux;
+          specialArgs = { inherit inputs outputs; };
+          modules = [
+            ./hosts/sapphic/configuration.nix
+          ];
+        };
+
+        solstice = lib.nixosSystem {
+          pkgs = pkgsFor.x86_64-linux;
+          specialArgs = { inherit inputs outputs; };
+          modules = [
+            nixos-wsl.nixosModules.default
+            ./hosts/solstice/configuration.nix
           ];
         };
       };
-  };
+
+      # Home Manager configurations
+      homeConfigurations = {
+        "chloe@sapphic" = inputs.home-manager.lib.homeManagerConfiguration {
+          pkgs = pkgsFor.x86_64-linux;
+          modules = [
+            ./home/chloe/sapphic.nix
+          ];
+          extraSpecialArgs = { inherit inputs outputs; };
+        };
+
+        "chloe@solstice" = inputs.home-manager.lib.homeManagerConfiguration {
+          pkgs = pkgsFor.x86_64-linux;
+          modules = [
+            ./home/chloe/solstice.nix
+          ];
+          extraSpecialArgs = { inherit inputs outputs; };
+        };
+      };
+    };
 }

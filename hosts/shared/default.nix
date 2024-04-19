@@ -4,23 +4,13 @@
   imports = [
     ./packages.nix
 
-    ../../modules/common/zsh.nix
-
-    ../../modules/services/pipewire.nix
-    
+    ../../modules/apps/cli/zsh.nix
   ];
-
-  # Nix options
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-  nixpkgs.config.allowUnfree = true;
 
   environment.pathsToLink = [ "/share/zsh" ]; # Link zsh completions
 
-  # Bootloader options
-  boot.loader = {
-    systemd-boot.enable = true;
-    efi.canTouchEfiVariables = true;
-  };
+  # Nix options
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # Time options
   time = {
@@ -29,6 +19,8 @@
   };
 
   programs.dconf.enable = true; # Fix missing cursors on Firefox
+
+  virtualisation.docker.enable = true;
 
   networking.networkmanager.enable = true; # Enable NetworkManager
 

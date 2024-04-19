@@ -9,6 +9,7 @@
     unzip
     firefox-bin
     nil
+    jq
     gparted
   ];
 }

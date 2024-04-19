@@ -1,36 +1,21 @@
-{ pkgs, inputs, ... }:
+{ pkgs, ... }:
 
 {
-  imports =
-    [
-      ./hardware-configuration.nix
-      ../shared
+  imports = [
+    ./hardware-configuration.nix
+    ../shared
 
-      ../../modules/system/graphics.nix
-      
-      ../../modules/services/asusd.nix
-      ../../modules/services/xserver.nix
+    ../../modules/system/asus.nix
+    ../../modules/system/audio.nix
+    ../../modules/system/bootloader.nix
+    ../../modules/system/gnome.nix
+    ../../modules/system/graphics.nix
 
-      ../../modules/cli-apps/1password
-
-      ../../modules/apps/1password
-      ../../modules/apps/steam
-
-      inputs.home-manager.nixosModules.default
-    ];
-
-  environment = {
-    systemPackages = with pkgs; [
-      asusctl
-      catppuccin-sddm-corners
-      catppuccin-cursors.mochaPink
-    ];
-    gnome.excludePackages = with pkgs; [ gnome-tour ];
-  };
+    ../../modules/apps/gui/1password.nix
+    ../../modules/apps/gui/steam.nix
+  ];
 
   services.flatpak.enable = true;
-
-  virtualisation.docker.enable = true;
 
   system.stateVersion = "23.11"; # Initial NixOS version
 }
