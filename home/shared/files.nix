@@ -6,7 +6,7 @@
     # https://developer.1password.com/docs/ssh/agent/config
     ".config/1Password/ssh/agent.toml".text = ''
       [[ssh-keys]]
-      vault = "Development"
+      vault = "SSH"
     '';
 
     # Catppuccin theme for Konsole
