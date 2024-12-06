@@ -22,7 +22,8 @@
   ];
   
   services.flatpak.enable = true;
-
+  services.tailscale.enable = true;
+  networking.networkmanager.enable = true;
 
   system.stateVersion = "23.11"; # Initial NixOS version
 }

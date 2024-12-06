@@ -18,20 +18,22 @@ in {
     ./apps/cli/zsh
   ];
 
-  home = {
-    username = username;
-    homeDirectory = "/home/${username}";
-  };
-
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+
+  home = {
+    inherit username;
+    homeDirectory = "/home/${username}";
+    
+    stateVersion = "23.11"; # Home Manager state version. Do not touch.
+  };
+
+  catppuccin.flavour = "mocha";
+  xdg.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
   # Font configuration
   fonts.fontconfig.enable = true;
-  
-  # Home Manager state version. Do not touch.
-  home.stateVersion = "23.11";
 }

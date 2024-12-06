@@ -12,17 +12,14 @@
   # Nix options
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  # Time options
   time = {
-    timeZone = "Asia/Qyzylorda";
-    hardwareClockInLocalTime = true;
+    timeZone = "Asia/Almaty";
+    hardwareClockInLocalTime = true; # Keep time synced on Windows and NixOS
   };
 
   programs.dconf.enable = true; # Fix missing cursors on Firefox
 
   virtualisation.docker.enable = true;
-
-  networking.networkmanager.enable = true; # Enable NetworkManager
 
   users.users = {
     chloe = {
