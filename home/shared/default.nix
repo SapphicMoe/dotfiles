@@ -28,7 +28,7 @@ in {
     stateVersion = "23.11"; # Home Manager state version. Do not touch.
   };
 
-  catppuccin.flavour = "mocha";
+  catppuccin.flavor = "mocha";
   xdg.enable = true;
 
   # Allow unfree packages
