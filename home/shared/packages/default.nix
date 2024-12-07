@@ -26,7 +26,7 @@
 
     # fonts
     iosevka inter atkinson-hyperlegible 
-    (nerdfonts.override { fonts = [ "JetBrainsMono" ]; }) 
+    nerd-fonts.jetbrains-mono
 
     # dev
     nodejs corepack_latest bun
