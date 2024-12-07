@@ -63,6 +63,15 @@
 
       # NixOS configurations
       nixosConfigurations = {
+        eris = lib.nixosSystem {
+          pkgs = pkgsFor.x86_64-linux;
+          specialArgs = { inherit inputs outputs; };
+          modules = [
+            catppuccin.nixosModules.catppuccin
+            ./hosts/eris/configuration.nix
+          ];
+        };
+
         sapphic = lib.nixosSystem {
           pkgs = pkgsFor.x86_64-linux;
           specialArgs = { inherit inputs outputs; };
@@ -85,6 +94,15 @@
 
       # Home Manager configurations
       homeConfigurations = {
+        "chloe@eris" = inputs.home-manager.lib.homeManagerConfiguration {
+          pkgs = pkgsFor.x86_64-linux;
+          modules = [
+            catppuccin.homeManagerModules.catppuccin
+            ./home/chloe/eris.nix
+          ];
+          extraSpecialArgs = { inherit inputs outputs; };
+        };
+        
         "chloe@sapphic" = inputs.home-manager.lib.homeManagerConfiguration {
           pkgs = pkgsFor.x86_64-linux;
           modules = [

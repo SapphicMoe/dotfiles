@@ -13,6 +13,9 @@ Dotfiles for our NixOS system configuration.
 ### `sapphic`
 Our laptop that we use as a daily driver. It's an ASUS TUF A15 with AMD Ryzen 5 4600H, 16GB of RAM and an RTX 3050.
 
+### `eris`
+ThinkPad T480s
+
 ## License
 This repository is licensed under the [MIT][license] license.
 
