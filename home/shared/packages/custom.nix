@@ -8,6 +8,6 @@
     # })
 
     # Cider
-    # (callPackage ../../../packages/cider.nix { })
+    (callPackage ../../../packages/cider.nix { })
   ];
 }
