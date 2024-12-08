@@ -20,6 +20,7 @@
   
   services.flatpak.enable = true;
   services.tailscale.enable = true;
+  networking.hostName = "eris";
   networking.networkmanager.enable = true;
 
   # Use this when using the fingerprint sensor.
