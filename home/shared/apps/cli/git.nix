@@ -22,7 +22,7 @@ in {
         ssh = {
           program = 
             if (builtins.getEnv "WSL_DISTRO_NAME" != "")
-            then "/mnt/c/Users/solely/AppData/Local/1Password/app/8/op-ssh-sign-wsl"
+            then "/mnt/c/Users/Chloe/AppData/Local/1Password/app/8/op-ssh-sign-wsl"
             else "${pkgs._1password-gui}/bin/op-ssh-sign";
           allowedSignersFile = "~/.ssh/allowed_signers";
         };
