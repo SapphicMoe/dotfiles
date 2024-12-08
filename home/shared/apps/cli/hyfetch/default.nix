@@ -16,7 +16,7 @@
         fore_back = null;
       };
 
-      backend = "neofetch";
+      backend = "fastfetch";
       args = null;
       distro = null;
       pride_month_shown = [];
@@ -24,7 +24,14 @@
     };
   };
 
-  xdg.configFile."neofetch/config.conf".source = ./neofetch.conf;
-
+  # xdg.configFile."neofetch/config.conf".source = ./neofetch.conf;
+  programs.fastfetch = {
+    enable = true;
+    settings = builtins.fromJSON (
+      builtins.unsafeDiscardStringContext (
+        builtins.readFile ./fastfetch.jsonc
+      )
+    );
+  };
   home.packages = with pkgs; [pciutils]; # Required to display GPU
 }
