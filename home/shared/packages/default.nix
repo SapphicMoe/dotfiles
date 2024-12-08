@@ -12,7 +12,7 @@
     owncloud-client
 
     # messengers
-    telegram-desktop
+    telegram-desktop vesktop
 
     # notes
     obsidian
