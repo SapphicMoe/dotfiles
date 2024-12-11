@@ -2,6 +2,7 @@
 
 {
   imports = [
+    inputs.home-manager.nixosModules.home-manager
     ./hardware-configuration.nix
     ../shared
 
@@ -32,6 +33,14 @@
         calib-data-file = ./fingerprint/calib-data.bin;
       };
     };
+  };
+
+  home-manager.users.chloe = {
+    imports = [
+      inputs.catppuccin.homeManagerModules.catppuccin
+      ../../home/chloe/eris.nix
+    ];
+    home.username = "chloe";
   };
   
   # Use this when enrolling new fingerprints.
