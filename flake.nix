@@ -2,11 +2,13 @@
   description = "NixOS configuration for the Sapphic Angels system.";
 
   inputs = {
-    nixpkgs = {
-      url = "nixpkgs/nixos-unstable";
-    };
-
+    nixpkgs.url = "nixpkgs/nixos-unstable";
     nixpkgs2311.url = "github:NixOS/nixpkgs/nixos-23.11";
+
+    nixos-hardware = {
+      url = "github:NixOS/nixos-hardware";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -14,9 +16,7 @@
     };
 
     # Catppuccin theme
-    catppuccin = {
-      url = "github:catppuccin/nix";
-    };
+    catppuccin.url = "github:catppuccin/nix";
 
     # Nix Language Server
     nil = {
@@ -48,6 +48,7 @@
     nixpkgs,
     catppuccin,
     home-manager, 
+    nixos-hardware,
     nixos-wsl,
     nixos-06cb-009a-fingerprint-sensor,
     ...
@@ -58,6 +59,7 @@
 
     systems = [
       "x86_64-linux"
+      "aarch64-linux"
     ];
 
     # forEachSystem = f: lib.genAttrs systems (system: f pkgsFor.${system});
@@ -80,6 +82,15 @@
             nixos-06cb-009a-fingerprint-sensor.nixosModules.python-validity
             catppuccin.nixosModules.catppuccin
             ./hosts/eris/configuration.nix
+          ];
+        };
+
+        lavender = lib.nixosSystem {
+          pkgs = pkgsFor.aaarch64-linux;
+          specialArgs = { inherit inputs outputs; };
+          modules = [
+            nixos-hardware.nixosModules.raspberry-pi-4
+            ./hosts/lavender/configuration.nix
           ];
         };
 
