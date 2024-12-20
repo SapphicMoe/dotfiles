@@ -86,7 +86,7 @@
         };
 
         lavender = lib.nixosSystem {
-          pkgs = pkgsFor.aaarch64-linux;
+          pkgs = pkgsFor.aarch64-linux;
           specialArgs = { inherit inputs outputs; };
           modules = [
             nixos-hardware.nixosModules.raspberry-pi-4
