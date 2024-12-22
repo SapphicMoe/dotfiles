@@ -84,6 +84,7 @@
           pkgs = pkgsFor.aarch64-linux;
           specialArgs = { inherit inputs outputs; };
           modules = [
+            catppuccin.nixosModules.catppuccin
             nixos-hardware.nixosModules.raspberry-pi-4
             ./hosts/lavender/configuration.nix
           ];
