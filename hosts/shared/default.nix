@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   imports = [
@@ -6,39 +6,47 @@
 
     ../../modules/apps/cli/zsh.nix
   ];
-
-  environment.pathsToLink = [ "/share/zsh" ]; # Link zsh completions
-
-  # Nix options
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
-  time = {
-    timeZone = "Asia/Almaty";
-    hardwareClockInLocalTime = true; # Keep time synced on Windows and NixOS
+  
+  options.settings = {
+    docker.enable = lib.mkOption { type = lib.types.bool; default = true; };
+    flatpak.enable = lib.mkOption { type = lib.types.bool; default = true; };
+    tailscale.enable = lib.mkOption { type = lib.types.bool; default = true; };
   };
+  
+  config = {
+    environment.pathsToLink = [ "/share/zsh" ]; # Link zsh completions
 
-  catppuccin = {
-    accent = "pink";
-    flavor = "mocha";
-  };
+    # Nix options
+    nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  services = {
-    flatpak.enable = true;
-    tailscale.enable = true;
-  };
+    time = {
+      timeZone = "Asia/Almaty";
+      hardwareClockInLocalTime = true; # Keep time synced on Windows and NixOS
+    };
 
-  programs.dconf.enable = true; # Fix missing cursors on Firefox
+    catppuccin = {
+      accent = "pink";
+      flavor = "mocha";
+    };
 
-  virtualisation.docker.enable = true;
+    services = {
+      flatpak.enable = config.settings.flatpak.enable;
+      tailscale.enable = config.settings.tailscale.enable;
+    };
 
-  security.polkit.enable = true; # Enable PolKit for system authentication in 1Password
+    programs.dconf.enable = true; # Fix missing cursors on Firefox
 
-  users.users = {
-    chloe = {
-      isNormalUser = true;
-      description = "Chloe";
-      extraGroups = [ "networkmanager" "wheel" "docker" ];
-      shell = with pkgs; zsh;
+    virtualisation.docker.enable = config.settings.docker.enable;
+
+    security.polkit.enable = true; # Enable PolKit for system authentication in 1Password
+
+    users.users = {
+      chloe = {
+        isNormalUser = true;
+        description = "Chloe";
+        extraGroups = [ "networkmanager" "wheel" "docker" ];
+        shell = with pkgs; zsh;
+      };
     };
   };
 }
