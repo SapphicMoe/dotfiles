@@ -8,7 +8,7 @@
     # ../../modules/system/bootloader.nix
   ];
 
-  flatpakEnabled = false;
+  settings.flatpak.enable = false;
 
   networking = {
     hostName = "lavender";
