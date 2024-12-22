@@ -128,6 +128,7 @@
         "chloe@lavender" = inputs.home-manager.lib.homeManagerConfiguration {
           pkgs = pkgsFor.aarch64-linux;
           modules = [
+            catppuccin.homeManagerModules.catppuccin
             ./home/chloe/lavender.nix
           ];
           extraSpecialArgs = { inherit inputs outputs; };
