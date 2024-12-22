@@ -1,16 +1,20 @@
+{ pkgs, ... }:
+
 {
-  services.xserver.desktopManager.plasma6.enable = true;
+  environment.systemPackages = with pkgs; [
+    catppuccin-cursors.mochaPink
+  ];
+
+  programs.kdeconnect.enable = true;
+  services.desktopManager.plasma6.enable = true;
 
   services.displayManager = {
     sddm = {
       enable = true;
-      theme = "catppuccin-sddm-corners";
-      wayland.enable = true;
-
-      settings = {
-        Theme.CursorTheme = "Catppuccin-Mocha-Pink-Cursors";
-        General.InputMethod = ""; # Disable touchscreen keyboard
+      catppuccin = {
+        enable = true;
       };
+      wayland.enable = true;
     };
   };
 }

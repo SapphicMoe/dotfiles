@@ -5,7 +5,6 @@ in {
     enable = true;
     extraConfig = ''
       Host *
-          IdentitiesOnly=yes
           IdentityAgent ${onePassPath}
     '';
   };
