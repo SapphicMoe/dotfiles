@@ -3,12 +3,8 @@
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-unstable";
-    nixpkgs2311.url = "github:NixOS/nixpkgs/nixos-23.11";
 
-    nixos-hardware = {
-      url = "github:NixOS/nixos-hardware";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -38,19 +34,19 @@
 
     # Fingerprint sensor for ThinkPad
     nixos-06cb-009a-fingerprint-sensor = {
-      url = "github:ahbnr/nixos-06cb-009a-fingerprint-sensor";
-      inputs.nixpkgs.follows = "nixpkgs2311";
+      url = "github:ahbnr/nixos-06cb-009a-fingerprint-sensor?ref=24.11";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
   outputs = inputs @ { 
     self,
+    nixos-06cb-009a-fingerprint-sensor,
     nixpkgs,
     catppuccin,
     home-manager, 
     nixos-hardware,
     nixos-wsl,
-    nixos-06cb-009a-fingerprint-sensor,
     ...
   }: let
     inherit (self) outputs;
@@ -78,10 +74,9 @@
           pkgs = pkgsFor.x86_64-linux;
           specialArgs = { inherit inputs outputs; };
           modules = [
-            nixos-06cb-009a-fingerprint-sensor.nixosModules.open-fprintd
-            nixos-06cb-009a-fingerprint-sensor.nixosModules.python-validity
             catppuccin.nixosModules.catppuccin
             ./hosts/eris/configuration.nix
+            inputs.nixos-06cb-009a-fingerprint-sensor.nixosModules."06cb-009a-fingerprint-sensor"
           ];
         };
 

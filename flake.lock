@@ -168,7 +168,7 @@
     "nixos-06cb-009a-fingerprint-sensor": {
       "inputs": {
         "nixpkgs": [
-          "nixpkgs2311"
+          "nixpkgs"
         ]
       },
       "locked": {
@@ -181,6 +181,7 @@
       },
       "original": {
         "owner": "ahbnr",
+        "ref": "24.11",
         "repo": "nixos-06cb-009a-fingerprint-sensor",
         "type": "github"
       }
@@ -196,6 +197,7 @@
       },
       "original": {
         "owner": "NixOS",
+        "ref": "master",
         "repo": "nixos-hardware",
         "type": "github"
       }
@@ -238,22 +240,6 @@
         "type": "indirect"
       }
     },
-    "nixpkgs2311": {
-      "locked": {
-        "lastModified": 1720535198,
-        "narHash": "sha256-zwVvxrdIzralnSbcpghA92tWu2DV2lwv89xZc8MTrbg=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "205fd4226592cc83fd4c0885a3e4c9c400efabb5",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixos-23.11",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
         "catppuccin": "catppuccin",
@@ -263,8 +249,7 @@
         "nixos-06cb-009a-fingerprint-sensor": "nixos-06cb-009a-fingerprint-sensor",
         "nixos-hardware": "nixos-hardware",
         "nixos-wsl": "nixos-wsl",
-        "nixpkgs": "nixpkgs",
-        "nixpkgs2311": "nixpkgs2311"
+        "nixpkgs": "nixpkgs"
       }
     },
     "rust-overlay": {

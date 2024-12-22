@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ inputs, pkgs, ... }:
 
 {
   imports = [
@@ -8,7 +8,7 @@
     ../../modules/system/acpi.nix
     ../../modules/system/audio.nix
     ../../modules/system/bootloader.nix
-    ../../modules/system/fingerprint
+    ../../modules/system/fingerprint.nix
     ../../modules/system/kde.nix
 
     ../../modules/apps/gui/1password.nix
