@@ -10,6 +10,8 @@
     defaultUser = "chloe";
     wslConf.network.hostname = "solstice";
   };
+
+  settings.flatpak.enable = false;
   
   programs.nix-ld = {
     enable = true;
