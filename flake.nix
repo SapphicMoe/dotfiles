@@ -124,6 +124,14 @@
           ];
           extraSpecialArgs = { inherit inputs outputs; };
         };
+
+        "chloe@lavender" = inputs.home-manager.lib.homeManagerConfiguration {
+          pkgs = pkgsFor.aarch64-linux;
+          modules = [
+            ./home/chloe/lavender.nix
+          ];
+          extraSpecialArgs = { inherit inputs outputs; };
+        };
         
         "chloe@sapphic" = inputs.home-manager.lib.homeManagerConfiguration {
           pkgs = pkgsFor.x86_64-linux;
