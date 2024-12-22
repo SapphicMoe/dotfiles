@@ -13,10 +13,7 @@
 
   settings.flatpak.enable = false;
   
-  programs.nix-ld = {
-    enable = true;
-    package = inputs.nix-ld-rs.packages."${pkgs.system}".nix-ld-rs;
-  };
+  programs.nix-ld.dev.enable = true;
 
   system.stateVersion = "23.11"; # Initial NixOS version
 }

@@ -20,9 +20,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # nix-ld-rs
-    nix-ld-rs = {
-      url = "github:nix-community/nix-ld-rs";
+    # nix-ld
+    nix-ld = {
+      url = "github:nix-community/nix-ld";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -47,6 +47,7 @@
     home-manager, 
     nixos-hardware,
     nixos-wsl,
+    nix-ld,
     ...
   }: let
     inherit (self) outputs;
@@ -103,6 +104,7 @@
           pkgs = pkgsFor.x86_64-linux;
           specialArgs = { inherit inputs outputs; };
           modules = [
+            nix-ld.nixosModules.nix-ld
             nixos-wsl.nixosModules.default
             catppuccin.nixosModules.catppuccin
             ./hosts/solstice/configuration.nix

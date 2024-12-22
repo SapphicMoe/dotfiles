@@ -11,9 +11,7 @@
   services.displayManager = {
     sddm = {
       enable = true;
-      catppuccin = {
-        enable = true;
-      };
+      catppuccin.enable = true;
       wayland.enable = true;
     };
   };
