@@ -104,7 +104,7 @@
           specialArgs = { inherit inputs outputs; };
           modules = [
             nixos-wsl.nixosModules.default
-            catppuccin.homeManagerModules.catppuccin
+            catppuccin.nixosModules.catppuccin
             ./hosts/solstice/configuration.nix
           ];
         };
