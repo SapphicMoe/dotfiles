@@ -6,7 +6,7 @@
     ./custom.nix # Custom packages
     ./scripts.nix # Scripts
   ];
-  
+
   home.packages = with pkgs; [
     # cloud
     owncloud-client
@@ -25,12 +25,14 @@
     })
 
     # fonts
-    iosevka inter atkinson-hyperlegible 
+    iosevka inter atkinson-hyperlegible
     nerd-fonts.jetbrains-mono
 
     # dev
-    nodejs corepack_latest bun
-    # jetbrains.webstorm jetbrains.idea-ultimate jetbrains.pycharm-professional
+    nodejs corepack_latest bun deno
+    jetbrains.webstorm jetbrains.idea-ultimate jetbrains.pycharm-professional jetbrains.rider jetbrains.datagrip
+    zed-editor
+    httpie-desktop cloudflared
 
     # mail
     thunderbird
@@ -39,6 +41,6 @@
     prismlauncher
 
     # other
-    kdePackages.akregator
+    kdePackages.akregator obs-studio miru
   ];
 }
