@@ -142,7 +142,7 @@
         "chloe@solstice" = inputs.home-manager.lib.homeManagerConfiguration {
           pkgs = pkgsFor.x86_64-linux;
           modules = [
-            catppuccin.nixosModules.catppuccin
+            catppuccin.homeManagerModules.catppuccin
             ./home/chloe/solstice.nix
           ];
           extraSpecialArgs = { inherit inputs outputs; };
