@@ -1,4 +1,5 @@
-{ pkgs, ... }:
+{  pkgs, lib, ... }:
+
 
 {
   imports = [
@@ -25,6 +26,9 @@
       cat = "bat";
       cd = "z";
       ls = "eza";
+    } // lib.optionalAttrs (builtins.getEnv "WSL_DISTRO_NAME" != "") {
+      ssh = "ssh.exe";
+      ssh-add = "ssh-add.exe";
     };
 
     oh-my-zsh = {
