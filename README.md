@@ -15,6 +15,9 @@ ThinkPad T480s
 ### `lavender`
 Raspberry Pi 4B
 
+### `solstice`
+Windows 11 (WSL2)
+
 ## License
 This repository is licensed under the [MIT][license] license.
 
