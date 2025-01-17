@@ -12,7 +12,19 @@
     };
 
     # Catppuccin theme
-    catppuccin.url = "github:catppuccin/nix";
+    catppuccin = {
+      url = "github:catppuccin/nix";
+
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        nixpkgs-stable.follows = "";
+        home-manager.follows = "";
+        home-manager-stable.follows = "";
+        nuscht-search.follows = "";
+        catppuccin-v1_1.follows = "";
+        catppuccin-v1_2.follows = "";
+      };
+    };
 
     # Nix Language Server
     nil = {
@@ -28,127 +40,57 @@
 
     # NixOS on WSL
     nixos-wsl = {
-      url = "github:nix-community/NixOS-WSL/main";
+      url = "github:nix-community/NixOS-WSL";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Fingerprint sensor for ThinkPad
     nixos-06cb-009a-fingerprint-sensor = {
-      url = "github:ahbnr/nixos-06cb-009a-fingerprint-sensor?ref=24.11";
+      url = "github:ahbnr/nixos-06cb-009a-fingerprint-sensor/24.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = inputs @ { 
-    self,
-    nixos-06cb-009a-fingerprint-sensor,
-    nixpkgs,
-    catppuccin,
-    home-manager, 
-    nixos-hardware,
-    nixos-wsl,
-    nix-ld,
-    ...
-  }: let
-    inherit (self) outputs;
+  outputs =
+    {
+      nixos-hardware,
+      nixos-wsl,
+      nix-ld,
+      ...
+    }@inputs:
+    let
+      lib = import ./lib { inherit inputs; };
 
-    lib = nixpkgs.lib // home-manager.lib;
-
-    systems = [
-      "x86_64-linux"
-      "aarch64-linux"
-    ];
-
-    # forEachSystem = f: lib.genAttrs systems (system: f pkgsFor.${system});
-
-    pkgsFor = lib.genAttrs systems (system:
-      import nixpkgs {
-        inherit system;
-        config.allowUnfree = true;
-      });
-    in {
+      forAllSystems =
+        function:
+        lib.genAttrs lib.systems.flakeExposed (system: function inputs.nixpkgs.legacyPackages.${system});
+    in
+    {
       inherit lib;
 
       # NixOS configurations
-      nixosConfigurations = {
-        eris = lib.nixosSystem {
-          pkgs = pkgsFor.x86_64-linux;
-          specialArgs = { inherit inputs outputs; };
-          modules = [
-            catppuccin.nixosModules.catppuccin
-            ./hosts/eris/configuration.nix
-            inputs.nixos-06cb-009a-fingerprint-sensor.nixosModules."06cb-009a-fingerprint-sensor"
-          ];
-        };
+      nixosConfigurations = lib.mapAttrs lib.mkSystem {
+        eris = { };
+        sapphic = { };
 
-        lavender = lib.nixosSystem {
-          pkgs = pkgsFor.aarch64-linux;
-          specialArgs = { inherit inputs outputs; };
+        lavender = {
           modules = [
-            catppuccin.nixosModules.catppuccin
             nixos-hardware.nixosModules.raspberry-pi-4
-            ./hosts/lavender/configuration.nix
           ];
         };
 
-        sapphic = lib.nixosSystem {
-          pkgs = pkgsFor.x86_64-linux;
-          specialArgs = { inherit inputs outputs; };
-          modules = [
-            catppuccin.nixosModules.catppuccin
-            ./hosts/sapphic/configuration.nix
-          ];
-        };
-
-        solstice = lib.nixosSystem {
-          pkgs = pkgsFor.x86_64-linux;
-          specialArgs = { inherit inputs outputs; };
+        solstice = {
           modules = [
             nix-ld.nixosModules.nix-ld
             nixos-wsl.nixosModules.default
-            catppuccin.nixosModules.catppuccin
-            ./hosts/solstice/configuration.nix
           ];
         };
       };
 
-      # Home Manager configurations
-      homeConfigurations = {
-        "chloe@eris" = inputs.home-manager.lib.homeManagerConfiguration {
-          pkgs = pkgsFor.x86_64-linux;
-          modules = [
-            catppuccin.homeManagerModules.catppuccin
-            ./home/chloe/eris.nix
-          ];
-          extraSpecialArgs = { inherit inputs outputs; };
-        };
+      packages = forAllSystems (pkgs: {
+        cider = pkgs.callPackage ./packages/cider.nix { };
+      });
 
-        "chloe@lavender" = inputs.home-manager.lib.homeManagerConfiguration {
-          pkgs = pkgsFor.aarch64-linux;
-          modules = [
-            catppuccin.homeManagerModules.catppuccin
-            ./home/chloe/lavender.nix
-          ];
-          extraSpecialArgs = { inherit inputs outputs; };
-        };
-        
-        "chloe@sapphic" = inputs.home-manager.lib.homeManagerConfiguration {
-          pkgs = pkgsFor.x86_64-linux;
-          modules = [
-            catppuccin.homeManagerModules.catppuccin
-            ./home/chloe/sapphic.nix
-          ];
-          extraSpecialArgs = { inherit inputs outputs; };
-        };
-
-        "chloe@solstice" = inputs.home-manager.lib.homeManagerConfiguration {
-          pkgs = pkgsFor.x86_64-linux;
-          modules = [
-            catppuccin.homeManagerModules.catppuccin
-            ./home/chloe/solstice.nix
-          ];
-          extraSpecialArgs = { inherit inputs outputs; };
-        };
-      };
+      formatter = forAllSystems (pkgs: pkgs.nixfmt-rfc-style);
     };
 }
