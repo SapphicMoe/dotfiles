@@ -11,6 +11,8 @@
 
     sharedModules = [
       {
+        home.stateVersion = "23.11";
+        
         # reload system units when changing configs
         systemd.user.startServices = "sd-switch";
 

@@ -14,10 +14,15 @@ lib.nixosSystem {
     # set hostname based on the host argument
     { networking.hostName = host; }
 
+    inputs.home-manager.nixosModules.home-manager
+
     # import shared modules
     ../modules/shared
 
     # import by hostname
     ../hosts/${host}
+
+    # import home manager
+    ../home/default.nix
   ] ++ modules;
 }
