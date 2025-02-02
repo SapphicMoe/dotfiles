@@ -6,8 +6,6 @@
     programs.kdeconnect.enable = true;
     services.desktopManager.plasma6.enable = true;
 
-    catppuccin.sddm.enable = true;
-
     services.displayManager = {
       sddm = {
         enable = true;
