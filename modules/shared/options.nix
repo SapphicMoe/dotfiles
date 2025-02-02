@@ -1,10 +1,22 @@
 { lib, ... }:
 {
   options.settings = {
-    scripts.enable = lib.mkEnableOption "Enable scripts" // {
+    docker.enable = lib.mkEnableOption "Enable Docker" // {
+      default = true;
+    };
+
+    flatpak.enable = lib.mkEnableOption "Enable Flatpak" // {
       default = true;
     };
 
     gui.enable = lib.mkEnableOption "Enable GUI packages";
+
+    scripts.enable = lib.mkEnableOption "Enable scripts" // {
+      default = true;
+    };
+
+    tailscale.enable = lib.mkEnableOption "Enable Tailscale" // {
+      default = true;
+    };
   };
 }

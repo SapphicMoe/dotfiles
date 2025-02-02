@@ -1,6 +1,5 @@
 {
   config,
-  lib,
   ...
 }:
 
@@ -17,22 +16,7 @@
     ./users.nix
     ./zsh.nix
   ];
-
-  options.settings = {
-    docker.enable = lib.mkOption {
-      type = lib.types.bool;
-      default = true;
-    };
-    flatpak.enable = lib.mkOption {
-      type = lib.types.bool;
-      default = true;
-    };
-    tailscale.enable = lib.mkOption {
-      type = lib.types.bool;
-      default = true;
-    };
-  };
-
+  
   config = {
     time = {
       timeZone = "Asia/Almaty";
