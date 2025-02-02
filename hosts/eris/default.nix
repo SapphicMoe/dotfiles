@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ./hardware-configuration.nix
+    ./hardware.nix
   ];
 
   networking.networkmanager.enable = true;
