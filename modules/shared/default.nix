@@ -18,19 +18,19 @@
   ];
   
   config = {
-    time = {
-      timeZone = "Asia/Almaty";
-      hardwareClockInLocalTime = true; # Keep time synced on Windows and NixOS
+    programs = {
+      dconf.enable = true; # Fix missing cursors on Firefox
+      nix-ld.dev.enable = config.settings.vscode-remote.enable; # Enable the VSCode Remote server via nix-ld
     };
 
     services = {
       flatpak.enable = config.settings.flatpak.enable;
       tailscale.enable = config.settings.tailscale.enable;
     };
-    
-    programs = {
-      dconf.enable = true; # Fix missing cursors on Firefox
-      nix-ld.dev.enable = config.settings.vscode-remote.enable;
+
+    time = {
+      timeZone = "Asia/Almaty";
+      hardwareClockInLocalTime = true; # Keep time synced on Windows and NixOS
     };
 
     virtualisation.docker.enable = config.settings.docker.enable;

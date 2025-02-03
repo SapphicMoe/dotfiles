@@ -5,8 +5,6 @@
 
   networking.networkmanager.enable = true;
 
-  system.stateVersion = "23.11"; # Initial NixOS version
-
   settings = {
     kde.enable = true;
     gui.enable = true;
@@ -18,4 +16,6 @@
       audio.enable = true;
     };
   };
+
+  system.stateVersion = "23.11"; # Initial NixOS version
 }
