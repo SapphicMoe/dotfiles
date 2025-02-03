@@ -18,5 +18,9 @@
     tailscale.enable = lib.mkEnableOption "Enable Tailscale" // {
       default = true;
     };
+
+    vscode-remote = lib.mkEnableOption "Enable the VSCode Remote server via nix-ld" // {
+      default = false;
+    };
   };
 }

@@ -27,8 +27,11 @@
       flatpak.enable = config.settings.flatpak.enable;
       tailscale.enable = config.settings.tailscale.enable;
     };
-
-    programs.dconf.enable = true; # Fix missing cursors on Firefox
+    
+    programs = {
+      dconf.enable = true; # Fix missing cursors on Firefox
+      nix-ld.dev.enable = config.settings.vscode-remote.enable;
+    };
 
     virtualisation.docker.enable = config.settings.docker.enable;
 
