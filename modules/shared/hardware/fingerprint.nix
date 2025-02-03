@@ -9,7 +9,7 @@
     inputs.nixos-06cb-009a-fingerprint-sensor.nixosModules."06cb-009a-fingerprint-sensor"
   ];
 
-  options.settings.hardware.fingerprint.enable = lib.mkEnableOption "Enable audio support";
+  options.settings.hardware.fingerprint.enable = lib.mkEnableOption "Enable fingerprint support";
 
   config = lib.mkIf config.settings.hardware.fingerprint.enable {
     services."06cb-009a-fingerprint-sensor" = {
