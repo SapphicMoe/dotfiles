@@ -1,27 +1,26 @@
-# ❄️ dotfiles
-Dotfiles for our NixOS system configuration.
 
+<div align="center">
+  <img src=".github/assets/lix.svg" width="100">
+  
+  <h1>dotfiles</h1>
+  
+  <i>NixOS dotfiles for the [Sapphic Angels](https://sapphic.moe) system.</i>
+</div>
+
+## Notice
 > [!WARNING]  
-> Please note these are our own personal dotfiles. Stuff may change without further notice.
+> Please note these are our own personal dotfiles. Stuff may change and break without further notice. 
+> 
+> We cannot guarantee help if you decide to use this.
 
-## Hosts in `machines/`
+## Credits
+Special thanks to [Isabel Roses](https://isabelroses.com/) for updating our flake and for providing additional assistance!
 
-### `sapphic`
-ASUS TUF A15
-
-### `eris`
-ThinkPad T480s
-
-### `lavender`
-Raspberry Pi 4B
-
-### `solstice`
-Windows 11 (WSL2)
+Logo provided by [Lix Project](https://lix.systems/).
 
 ## License
-This repository is licensed under the [MIT][license] license.
+[MIT][license]
 
-© 2024 Chloe Arciniega.
+Copyright © 2025 Sapphic Angels System.
 
 [license]: /LICENSE
-[screenshot]: https://i.solstice.tf/file/2024/03/image_2024-03-15_03-53-39.png "Our laptop running KDE Plasma 5.27 on NixOS 24.05. It's currently displaying the hyfetch command."
